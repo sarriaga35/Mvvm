@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+
+    alias(libs.plugins.com.google.devtools.ksp)
+    alias(libs.plugins.com.google.dagger.hilt.android)
 }
 
 android {
@@ -9,10 +12,10 @@ android {
 
     defaultConfig {
         applicationId = "com.cursokotlin.mvvm"
-        minSdk = 24
+        minSdk = 21
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -27,11 +30,14 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
+    }
+    buildFeatures{
+        viewBinding = true
     }
 }
 
@@ -42,6 +48,29 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    // Fragment
+    implementation(libs.androidx.fragment.ktx)
+
+    // ViewModel
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    // LiveData
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    //Corrutinas
+    implementation(libs.kotlinx.coroutines.android)
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    //Dagger - Hilt
+    implementation (libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
+    ksp (libs.dagger.compiler) // Dagger compiler
+    ksp (libs.hilt.compiler)   // Hilt compiler
+
+    //Room
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
